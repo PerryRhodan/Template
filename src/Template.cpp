@@ -2,14 +2,12 @@
 #include "include/Template.h"
 
 #include <Eigen/Dense>
-
-
-bool forevervar = true;
+#include <boost/asio/io_service.hpp>
+#include <boost/asio/steady_timer.hpp>
 
 void sighandler(int sig)
 {
     std::cout << "Signal " << sig << " caught..." << std::endl;
-    forevervar = false;
 
 }
 
@@ -33,6 +31,14 @@ int main (int argc, char *argv[])
     double outputValue = sqrt(inputValue);
     std::cout << "Square root of " << inputValue << " is " << outputValue << std::endl;
 
+
+    
+    boost::asio::io_service io_service;
+    boost::asio::steady_timer timer1{io_service, std::chrono::seconds{2}};
+    timer1.async_wait([](const boost::system::error_code &ec)
+		    { std::cout << "2 seconds have passed\n"; });
+
+    io_service.run();
 
     return 0;
 }
