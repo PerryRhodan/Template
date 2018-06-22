@@ -15,5 +15,8 @@ find_package (Eigen3 3.3.4 REQUIRED NO_MODULE)
 #######
 
 
-add_executable(Template src/template.cpp)
+set(SRC_FILES "src/Template.cpp")
+
+
+add_executable(Template ${SRC_FILES})
 target_link_libraries (Template Eigen3::Eigen)

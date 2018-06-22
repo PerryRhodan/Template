@@ -1,10 +1,5 @@
 //
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
-#include <iostream>
-#include <signal.h>
+#include "include/Template.h"
 
 #include <Eigen/Dense>
 
