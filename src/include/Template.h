@@ -1,12 +1,6 @@
 #pragma once
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
 #include <iostream>
-#include <signal.h>
-#include <chrono>
-
 
 class Template
 {
@@ -14,7 +8,8 @@ class Template
 	Template();
 	~Template();
 
-
+	bool run();
+	double calculate_sqrt(double value);
 
     private:
 

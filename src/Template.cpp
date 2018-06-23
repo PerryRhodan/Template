@@ -5,34 +5,21 @@
 #include <boost/asio/io_service.hpp>
 #include <boost/asio/steady_timer.hpp>
 
-void sighandler(int sig)
+
+
+Template::Template()
 {
-    std::cout << "Signal " << sig << " caught..." << std::endl;
+ 
+  
+}
+
+Template::~Template()
+{
 
 }
 
-
-
-int main (int argc, char *argv[])
+bool Template::run()
 {
-    signal(SIGABRT, &sighandler);
-    signal(SIGTERM, &sighandler);
-    signal(SIGINT, &sighandler);
-
-    fprintf(stdout, "%s Version v%d.%d.%d\n\n", argv[0], VERSION_MAJOR, VERSION_MINOR, VERSION_PATCH);
-
-    if (argc < 2)
-    {
-        std::cout << "Usage: ./template NUMBER (double) to calculate the square root. " << std::endl;
-        return 1;
-    }
-
-    double inputValue = atof(argv[1]);
-    double outputValue = sqrt(inputValue);
-    std::cout << "Square root of " << inputValue << " is " << outputValue << std::endl;
-
-
-    
     boost::asio::io_service io_service;
     boost::asio::steady_timer timer1{io_service, std::chrono::seconds{2}};
     timer1.async_wait([](const boost::system::error_code &ec)
@@ -40,6 +27,11 @@ int main (int argc, char *argv[])
 
     io_service.run();
 
-    return 0;
+    return true;
+}
+
+double Template::calculate_sqrt(double value)
+{
+    return sqrt(value);
 }
 
