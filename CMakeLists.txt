@@ -17,8 +17,10 @@ add_definitions (-DVERSION_MAJOR=1 -DVERSION_MINOR=0 -DVERSION_PATCH=0)
 ####### eigen3
 find_package (Eigen3 3.3.4 REQUIRED NO_MODULE)
 
-####### booost
-find_package (Boost 1.58.0 COMPONENTS system filesystem unit_test_framework REQUIRED)
+####### boost
+add_definitions (-DBOOST_LOG_DYN_LINK)
+find_package (Boost 1.58.0 COMPONENTS system
+       	filesystem log unit_test_framework REQUIRED)
 
 ####### ros
 find_package (catkin COMPONENTS roscpp rospy std_msgs)
@@ -28,8 +30,7 @@ find_package (catkin COMPONENTS roscpp rospy std_msgs)
 #########################################
 #######
 
-set(CMAKE_CXX_FLAGS "-std=c++11")
-
+set(CMAKE_CXX_FLAGS "-std=c++11" )
 
 ######
 

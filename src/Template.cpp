@@ -4,6 +4,7 @@
 #include <Eigen/Dense>
 #include <boost/asio/io_service.hpp>
 #include <boost/asio/steady_timer.hpp>
+#include <boost/log/trivial.hpp>
 
 Template::Template()
 {
@@ -18,6 +19,7 @@ Template::~Template()
 
 bool Template::run()
 {
+    BOOST_LOG_TRIVIAL(trace) << "Template::run";
     boost::asio::io_service io_service;
     boost::asio::steady_timer timer1{io_service, std::chrono::seconds{2}};
     timer1.async_wait([](const boost::system::error_code &ec)

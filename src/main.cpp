@@ -2,10 +2,12 @@
 #include <signal.h>
 
 #include "include/Template.h"
-#include "ros/ros.h"
-#include "std_msgs/String.h"
 
+#include <ros/ros.h>
+#include <std_msgs/String.h>
 
+#include <boost/log/trivial.hpp>
+#include <boost/log/expressions.hpp>
 
 void sighandler(int sig)
 {
@@ -26,6 +28,13 @@ int main (int argc, char *argv[])
 
     fprintf(stdout, "%s Version v%d.%d.%d\n\n", argv[0], VERSION_MAJOR, VERSION_MINOR, VERSION_PATCH);
 
+    // TODO reading of configuration file
+    
+    // TODO read command line argument to set logging level
+    boost::log::core::get()->set_filter (
+	boost::log::trivial::severity >= boost::log::trivial::warning
+    );
+
 
     if (argc < 2)
     {
@@ -34,6 +43,8 @@ int main (int argc, char *argv[])
     }
 
     Template tmpl;
+    tmpl.run();
+
     double inputValue = atof(argv[1]);
     double outputValue = tmpl.calculate_sqrt(inputValue);
     std::cout << "Square root of " << inputValue << " is " << outputValue << std::endl;
