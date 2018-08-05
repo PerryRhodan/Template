@@ -47,29 +47,29 @@ set(SRC_FILES
 	"src/Template.cpp"
 	)
 set(UNIT_TESTS 
-	"unit-tests/main.cpp" 
 	"unit-tests/TemplateUnit.cpp"
 	)
 
 ###########################################
-### main binary
-add_executable(Template "src/main.cpp" ${SRC_FILES})
-target_link_libraries (Template
-       	Eigen3::Eigen
-       	${Boost_LIBRARIES}
-	${catkin_LIBRARIES}
+### main library
+add_library(TemplateLib ${SRC_FILES})
+target_link_libraries (TemplateLib 
+		Eigen3::Eigen
+		${Boost_LIBRARIES}
+		${catkin_LIBRARIES}
 	)
 
 ###########################################
-######
-#add_dependencies(Template templatedependency)
-
-
+### create binary using the library
+add_executable(Template src/main.cpp)
+target_link_libraries (Template
+		TemplateLib
+	)
 
 ############################################
 ####### unit tests
-add_executable(unit-tests ${UNIT_TESTS} ${SRC_FILES})
-target_link_libraries (unit-tests Eigen3::Eigen ${Boost_LIBRARIES})
+add_executable(unit-tests unit-tests/main.cpp ${UNIT_TESTS})
+target_link_libraries (unit-tests TemplateLib)
 
 include(${CMAKE_CURRENT_SOURCE_DIR}/unit-tests/CMakeLists.txt)
 
